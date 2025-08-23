@@ -1,15 +1,16 @@
 "use client"
 
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, Stack } from "@mui/material";
 import { FunctionComponent } from "react";
+import { PricingCondition } from "../types/pricing-types";
 
 export interface PricingCardProps { 
   tier: string
   price: string
-  description: string
+  conditions: PricingCondition[]
 }
 
-export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, description }) => { 
+export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, conditions }) => { 
   return (
     <Box sx={(theme) => ({
         backgroundColor: 'background.paper',
@@ -29,7 +30,11 @@ export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, 
         <Typography variant="h5" fontWeight="bold" gutterBottom>
           {price}
         </Typography>
-        <Typography variant="body1">{description}</Typography>
+        <Stack spacing="1.5rem" sx={{ marginTop: '2rem' }}>
+        {
+            conditions.map(({ key, text }) => <Typography key={key} variant="body1">✓ {text}</Typography>)
+        }
+        </Stack>
       </Box>
 
       <Button

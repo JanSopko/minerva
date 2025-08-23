@@ -1,3 +1,5 @@
+"use client"
+
 import { Box, Typography } from '@mui/material'
 import { FunctionComponent } from 'react'
 
@@ -20,7 +22,7 @@ export const AboutUs: FunctionComponent = () => {
       }}
     >
       <Box sx={{ padding: '5rem' }}>
-        <Typography sx={{fontSize: '1.5rem'}}>
+        <Typography sx={theme => ({ fontSize: '1.5rem', color: theme.palette.primary.main })}>
           We believe great stories deserve to be shared — and easily accessible to everyone.
 
           Our platform brings magazines, publishers, and readers together in one seamless experience. Inspired by the love of reading and the power of connection, we help publishers reach wider audiences while giving readers instant access to a world of knowledge, inspiration, and entertainment.

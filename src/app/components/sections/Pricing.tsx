@@ -3,6 +3,7 @@
 import { Box, Stack } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 import { PricingCard } from "../PricingCard";
+import { PricingCondition } from "@/app/types/pricing-types";
 
 type Periodicity = 'monthly' | 'yearly'
 type Tier = 'basic' | 'premium' | 'family'
@@ -20,7 +21,11 @@ const pricesRecord: Record<Periodicity, Record<Tier, string>> = {
   }
 }
 
-export const PricingSection: FunctionComponent = () => { 
+const basicConditions: PricingCondition[] = ["Access to 10 articles per month", "With ads", "Access anywhere and anytime on 2 devices", "Cancel membership anytime"].map((text, key) => ({ key, text }))
+const premiumConditions: PricingCondition[] = ["Unlimited access to articles", "With ads", "Access anywhere and anytime on 2 devices", "Cancel membership anytime"].map((text, key) => ({ key, text }))
+const familyConditions: PricingCondition[] = ["Unlimited access to articles", "With ads", "Plan for 4 profiles", "Cancel membership anytime"].map((text, key) => ({ key, text }))
+
+export const Pricing: FunctionComponent = () => { 
   const [periodicity, setPeriodicity] = useState<Periodicity>('monthly')
 
   return (
@@ -77,9 +82,9 @@ export const PricingSection: FunctionComponent = () => {
         </Box>
       </Stack>     
       <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-evenly', backgroundColor: 'background.default', height: '100%'  }}>
-        <PricingCard tier="Basic" price={pricesRecord[periodicity].basic} description="" />
-        <PricingCard tier="Premium" price={pricesRecord[periodicity].premium} description=""/>
-        <PricingCard tier="Family" price={pricesRecord[periodicity].family} description=""/>
+        <PricingCard tier="Basic" price={pricesRecord[periodicity].basic} conditions={basicConditions} />
+        <PricingCard tier="Premium" price={pricesRecord[periodicity].premium} conditions={premiumConditions} />
+        <PricingCard tier="Family" price={pricesRecord[periodicity].family} conditions={familyConditions} />
       </Stack>
     </Box>
   )
