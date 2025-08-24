@@ -19,17 +19,17 @@ export default function ArticlesCarousel() {
   return (
     <Box
       component="div"
-      sx={{
+      sx={(theme) => ({
         height: '50rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         alignContent: 'center',
-        backgroundColor: 'background.paper',
+        backgroundColor: theme.palette.background.paper,
         color: 'secondary.light',
         boxShadow: 1
         
-      }}
+      })}
     >
       <Stack
         sx={{
@@ -70,7 +70,16 @@ export default function ArticlesCarousel() {
         ${theme.palette.background.default}
         )`,
       })} >
-        <Button color='secondary' variant='contained' size='large'>Get started</Button>
+        <Button
+          color='secondary'
+          variant='contained'
+          size='large'
+          sx={{
+            fontSize: "1.25rem", 
+            padding: "12px 32px",
+            borderRadius: "12px",
+            marginTop: "64px"
+          }}>Get started</Button>
       </Box>
     </Box>
   )
