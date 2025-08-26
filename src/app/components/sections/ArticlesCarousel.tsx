@@ -3,7 +3,7 @@
 import { Box, Button, Stack } from '@mui/material'
 import { keyframes } from "@emotion/react";
 import { ArticleCard } from '../ArticleCard';
-import { mockedArticlesWithIds } from '@/app/mock-data/mockArticles';
+import { mockedArticlesWithIds } from '../../mock-data/mockArticles';
 
 const slideAnimation = keyframes`
   0% {
