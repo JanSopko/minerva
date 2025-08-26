@@ -13,7 +13,6 @@ export interface PricingCardProps {
 
 export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, conditions }) => { 
   const theme = useTheme()
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
   const isMobile = false
 
   const getPricingBoxSX = (): SxProps<Theme> => { 

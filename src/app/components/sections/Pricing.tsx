@@ -29,7 +29,6 @@ const familyConditions: PricingCondition[] = ["Unlimited access to articles", "W
 export const Pricing: FunctionComponent = () => { 
   const [periodicity, setPeriodicity] = useState<Periodicity>('monthly')
   const theme = useTheme()
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
   const isMobile = false;
 
   return (

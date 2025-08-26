@@ -9,8 +9,7 @@ const scrollToSection = (sectionId: string) => {
 }
 
 export default function Navbar() {
-  // const theme = useTheme()
-  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
+  const theme = useTheme()
   const isMobile = false;
 
   return (
