@@ -4,6 +4,7 @@ import { Box, Stack } from "@mui/material";
 import { FunctionComponent, useState } from "react";
 import { PricingCard } from "../PricingCard";
 import { PricingCondition } from "@/app/types/pricing-types";
+import { useTheme } from '@mui/material/styles';
 
 type Periodicity = 'monthly' | 'yearly'
 type Tier = 'basic' | 'premium' | 'family'
@@ -27,6 +28,9 @@ const familyConditions: PricingCondition[] = ["Unlimited access to articles", "W
 
 export const Pricing: FunctionComponent = () => { 
   const [periodicity, setPeriodicity] = useState<Periodicity>('monthly')
+  const theme = useTheme()
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
+  const isMobile = false;
 
   return (
     <Box
@@ -41,8 +45,7 @@ export const Pricing: FunctionComponent = () => {
         padding: 2,
         backgroundColor: 'background.default',
         color: 'secondary.light',
-        boxShadow: 1
-        
+        boxShadow: 1,
       }}
     >
       <Stack direction="row" sx={{ display: 'flex', justifyContent: 'center', marginBottom: '3rem' }}>
@@ -81,7 +84,17 @@ export const Pricing: FunctionComponent = () => {
           Billed yearly
         </Box>
       </Stack>     
-      <Stack direction="row" sx={{ display: 'flex', justifyContent: 'space-evenly', backgroundColor: 'background.default', height: '100%'  }}>
+      <Stack
+        direction={isMobile ? "column" : "row"}
+        sx={{
+          display: 'flex',
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: 'space-evenly',
+          alignItems: 'center',
+          backgroundColor: 'background.default',
+          height: '100%'
+        }}
+      >
         <PricingCard tier="Basic" price={pricesRecord[periodicity].basic} conditions={basicConditions} />
         <PricingCard tier="Premium" price={pricesRecord[periodicity].premium} conditions={premiumConditions} />
         <PricingCard tier="Family" price={pricesRecord[periodicity].family} conditions={familyConditions} />

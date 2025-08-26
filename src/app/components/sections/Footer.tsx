@@ -11,13 +11,14 @@ export const Footer: FunctionComponent = () => {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
+        justifySelf: 'flex-end',
         alignContent: 'center',
         textAlign: 'center',
         padding: 2,
+        marginTop: '1rem',
         backgroundColor: 'background.default',
         color: 'primary.light',
-        boxShadow: 1
-        
+        boxShadow: 1,
       }}
     >Minerva ©2025
     </Box>

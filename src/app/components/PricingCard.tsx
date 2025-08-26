@@ -1,8 +1,9 @@
 "use client"
 
-import { Box, Typography, Button, Stack } from "@mui/material";
+import { Box, Typography, Button, Stack, SxProps, Theme } from "@mui/material";
 import { FunctionComponent } from "react";
 import { PricingCondition } from "../types/pricing-types";
+import { useTheme } from '@mui/material/styles';
 
 export interface PricingCardProps { 
   tier: string
@@ -11,8 +12,26 @@ export interface PricingCardProps {
 }
 
 export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, conditions }) => { 
-  return (
-    <Box sx={(theme) => ({
+  const theme = useTheme()
+  // const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
+  const isMobile = false
+
+  const getPricingBoxSX = (): SxProps<Theme> => { 
+    if (isMobile) { 
+      return {
+        backgroundColor: 'background.paper',
+        height: 'auto',
+        width: '90%',
+        padding: '1rem',
+        marginBottom: '1rem',
+        borderRadius: '5%',
+        '&:hover': {
+          boxShadow: `0 0 10px 2px ${theme.palette.secondary.main}`,
+        }
+      }
+    }
+
+    return {
         backgroundColor: 'background.paper',
         height: '90%',
         width: '30%',
@@ -21,8 +40,11 @@ export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, 
         '&:hover': {
           boxShadow: `0 0 10px 2px ${theme.palette.secondary.main}`,
         }
-      })
-    } >
+      }
+  }
+
+  return (
+    <Box sx={getPricingBoxSX()} >
       <Box>
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           {tier}
