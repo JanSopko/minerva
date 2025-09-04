@@ -4,6 +4,8 @@ import { Box, Button, Stack } from '@mui/material'
 import { keyframes } from "@emotion/react";
 import { ArticleCard } from '../ArticleCard';
 import { mockedArticlesWithIds } from '../../mock-data/mockArticles';
+import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from '@mui/system';
 
 const slideAnimation = keyframes`
   0% {
@@ -16,11 +18,13 @@ const slideAnimation = keyframes`
 
 
 export default function ArticlesCarousel() {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
+
   return (
     <Box
       component="div"
       sx={(theme) => ({
-        height: '50rem',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
@@ -58,17 +62,17 @@ export default function ArticlesCarousel() {
         </Stack>
         
       </Stack>
-      <Box sx={(theme) => ({
-        height: '300px',
-        width: '100%',
-        position: 'absolute',
-        paddingLeft: '5rem',
-        bottom: '90px',
-        background: `linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0) 0%,
-        ${theme.palette.background.default}
-        )`,
+      {isMobile ? null : (
+          <Box sx={(theme) => ({
+            height: '300px',
+            width: '100%',
+            paddingLeft: '5rem',
+            bottom: '90px',
+            background: `linear-gradient(
+              to bottom,
+              rgba(0, 0, 0, 0) 0%,
+            ${theme.palette.background.default}
+            )`,
       })} >
         <Button
           color='secondary'
@@ -79,8 +83,11 @@ export default function ArticlesCarousel() {
             padding: "12px 32px",
             borderRadius: "12px",
             marginTop: "64px"
-          }}>Get started</Button>
+          }}>Get started
+        </Button>
       </Box>
+        )
+      }
     </Box>
   )
 }

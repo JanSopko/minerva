@@ -1,8 +1,9 @@
 'use client'
 
+import { NavbarMobileMenu } from './NavbarMobileMenu';
 import { Box, Button, Typography } from '@mui/material'
 import { useTheme } from '@mui/material/styles';
-import { NavbarMobileMenu } from './NavbarMobileMenu';
+import { useMediaQuery } from '@mui/system';
 
 const scrollToSection = (sectionId: string) => { 
   document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' })
@@ -10,7 +11,7 @@ const scrollToSection = (sectionId: string) => {
 
 export default function Navbar() {
   const theme = useTheme()
-  const isMobile = false;
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   return (
     <Box
@@ -34,9 +35,6 @@ export default function Navbar() {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             <Button color="primary" onClick={() => scrollToSection('about-us')}>About us</Button>
             <Button color="primary" onClick={() => scrollToSection('pricing')}>Pricing</Button>
-            <Button variant='outlined' color="secondary" >
-              Get Started
-            </Button>
           </Box>
         </NavbarMobileMenu>
       ) : (

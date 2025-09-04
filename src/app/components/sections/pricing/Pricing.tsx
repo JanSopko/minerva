@@ -2,25 +2,12 @@
 
 import { Box, Stack } from "@mui/material";
 import { FunctionComponent, useState } from "react";
-import { PricingCard } from "../PricingCard";
+import { PricingCard } from "../../../components/pricing/PricingCard";
 import { PricingCondition } from "@/app/types/pricing-types";
 import { useTheme } from '@mui/material/styles';
-
-type Periodicity = 'monthly' | 'yearly'
-type Tier = 'basic' | 'premium' | 'family'
-
-const pricesRecord: Record<Periodicity, Record<Tier, string>> = {
-  monthly: {
-    basic: '8,99€ / month',
-    premium: '12,99€ / month',
-    family: '15,99€ / month'
-  },
-  yearly: {
-    basic: '86,90€ / year',
-    premium: '124,90€ / year',
-    family: '153,90€ / year'
-  }
-}
+import { useMediaQuery } from '@mui/system';
+import { Periodicity, pricesRecord } from "@/app/data/pricingData";
+import { PricingMobile } from "./PricingMobile";
 
 const basicConditions: PricingCondition[] = ["Access to 10 articles per month", "With ads", "Access anywhere and anytime on 2 devices", "Cancel membership anytime"].map((text, key) => ({ key, text }))
 const premiumConditions: PricingCondition[] = ["Unlimited access to articles", "With ads", "Access anywhere and anytime on 2 devices", "Cancel membership anytime"].map((text, key) => ({ key, text }))
@@ -29,7 +16,7 @@ const familyConditions: PricingCondition[] = ["Unlimited access to articles", "W
 export const Pricing: FunctionComponent = () => { 
   const [periodicity, setPeriodicity] = useState<Periodicity>('monthly')
   const theme = useTheme()
-  const isMobile = false;
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true });
 
   return (
     <Box
@@ -83,21 +70,24 @@ export const Pricing: FunctionComponent = () => {
           Billed yearly
         </Box>
       </Stack>     
-      <Stack
-        direction={isMobile ? "column" : "row"}
-        sx={{
-          display: 'flex',
-          flexDirection: isMobile ? 'column' : 'row',
-          justifyContent: 'space-evenly',
-          alignItems: 'center',
-          backgroundColor: 'background.default',
-          height: '100%'
-        }}
-      >
-        <PricingCard tier="Basic" price={pricesRecord[periodicity].basic} conditions={basicConditions} />
-        <PricingCard tier="Premium" price={pricesRecord[periodicity].premium} conditions={premiumConditions} />
-        <PricingCard tier="Family" price={pricesRecord[periodicity].family} conditions={familyConditions} />
-      </Stack>
+      {
+        isMobile ? <PricingMobile periodicity={periodicity} /> : (
+          <Stack
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              alignItems: 'center',
+              backgroundColor: 'background.default',
+              height: '100%'
+            }}
+          >
+            <PricingCard tier="Basic" price={pricesRecord[periodicity].basic} conditions={basicConditions} />
+            <PricingCard tier="Premium" price={pricesRecord[periodicity].premium} conditions={premiumConditions} />
+            <PricingCard tier="Family" price={pricesRecord[periodicity].family} conditions={familyConditions} />
+          </Stack>
+        )
+      }
     </Box>
   )
 }

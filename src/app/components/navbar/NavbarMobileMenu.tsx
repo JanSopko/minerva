@@ -2,6 +2,7 @@
 
 import { FunctionComponent, useState, MouseEvent, ReactNode, PropsWithChildren } from "react";
 import {
+  Button,
   IconButton,
   Menu,
 } from "@mui/material";
@@ -19,6 +20,9 @@ export const NavbarMobileMenu: FunctionComponent<PropsWithChildren> = ({ childre
 
   return (
     <>
+      <Button variant='outlined' color="secondary" >
+        Get Started
+      </Button>
       <IconButton
         color="inherit"
         aria-expanded={open ? "true" : undefined}
@@ -27,7 +31,6 @@ export const NavbarMobileMenu: FunctionComponent<PropsWithChildren> = ({ childre
       >
         <MenuIcon />
       </IconButton>
-
       <Menu
         anchorEl={anchorEl}
         open={open}

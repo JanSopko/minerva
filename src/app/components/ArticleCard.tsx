@@ -46,7 +46,7 @@ export const ArticleCard: FunctionComponent<ArticleCardProps> = ({ imgSrc, link,
           <Box
             className="overlayText"
             sx={(theme) => ({
-              position: "absolute",
+              position: 'absolute',
               bottom: 0,
               width: "100%",
               height: "40%",

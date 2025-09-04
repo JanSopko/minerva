@@ -2,8 +2,9 @@
 
 import { Box, Typography, Button, Stack, SxProps, Theme } from "@mui/material";
 import { FunctionComponent } from "react";
-import { PricingCondition } from "../types/pricing-types";
+import { PricingCondition } from "../../types/pricing-types";
 import { useTheme } from '@mui/material/styles';
+import { useMediaQuery } from "@mui/system";
 
 export interface PricingCardProps { 
   tier: string
@@ -13,7 +14,7 @@ export interface PricingCardProps {
 
 export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, conditions }) => { 
   const theme = useTheme()
-  const isMobile = false
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'), { noSsr: true })
 
   const getPricingBoxSX = (): SxProps<Theme> => { 
     if (isMobile) { 
@@ -32,7 +33,7 @@ export const PricingCard: FunctionComponent<PricingCardProps> = ({ tier, price, 
 
     return {
         backgroundColor: 'background.paper',
-        height: '90%',
+        height: 'auto',
         width: '30%',
         padding: '2rem',
         borderRadius: '5%',
